@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: terumoni-weather-cronjob
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: asia.gcr.io/flex-k8s/terumoni-weather
+              imagePullPolicy: Always
+              name: terumoni-weather-container
+              env:
+                - name: DB_HOST
+                  valueFrom:
+                      secretKeyRef:
+                          name: database-config
+                          key: hostname
+                - name: DB_USER
+                  valueFrom:
+                      secretKeyRef:
+                          name: database-config
+                          key: username
+                - name: DB_PASS
+                  valueFrom:
+                      secretKeyRef:
+                          name: database-config
+                          key: password
+                - name: DB_NAME
+                  value: "teruteru"
+          restartPolicy: Never
