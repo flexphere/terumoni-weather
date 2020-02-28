@@ -78,7 +78,7 @@ const insertData = (con, data) => {
                 ${data.main.pressure},
                 ${data.main.humidity},
                 ${data.wind.speed},
-                ${data.wind.deg},
+                ${data.wind.deg || 0},
                 ${data.clouds.all},
                 '${description}'
              );
