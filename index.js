@@ -99,7 +99,7 @@ const crawl = async() => {
 
         for (const location of locations) {
             // UTC+9hours
-            const date = moment().add(9, 'hours').format("YYYY-MM-DD HH:00:00");
+            const date = moment().add(9, 'hours').format("YYYY-MM-DD HH:mm:00");
 
             const exist = await dataExists(con, date, location.city_id);
             if (exist) {
