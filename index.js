@@ -66,8 +66,12 @@ const insertData = (con, data) => {
         if (data.weather.length) {
             description = data.weather.map(w => w.description).join(' / ');
         }
+        let rain = 0;
+        if (data.rain) {
+            rain = data.rain["1h"];
+        }
         const q = `
-            INSERT INTO weather (city_id,city_name,time,temp,temp_min,temp_max,pressure,humidity,wind_speed,wind_deg,clouds,description) 
+            INSERT INTO weather (city_id,city_name,time,temp,temp_min,temp_max,pressure,humidity,wind_speed,wind_deg,rain,clouds,description) 
             VALUES (
                 ${data.id},
                 '${data.name}',
@@ -79,6 +83,7 @@ const insertData = (con, data) => {
                 ${data.main.humidity},
                 ${data.wind.speed},
                 ${data.wind.deg || 0},
+                ${rain},
                 ${data.clouds.all},
                 '${description}'
              );
